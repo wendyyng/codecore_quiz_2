@@ -1,0 +1,26 @@
+<div class="container">
+<div class="container d-flex flex-wrap justify-content-around">
+<% @ideas.each do |idea| %>
+  <div class="container">
+
+    <h5 class="card-title"><%= link_to idea.title, idea_path(idea), class: "text-decoration-none" %></h5>
+    <p class="card-text"><%=idea.description%></p>
+    <small>By <%= idea.user.first_name %></small>
+    <small>
+  <% if current_user && @like.present? %>
+  <div><%= button_to "Liked", like_path(@like), method: :delete , class:"btn btn-primary" %></div>
+  <% elsif current_user %>
+  <div>
+  <%= button_to 'Like', idea_likes_path(idea), method: :post , class:"btn btn-primary" %>
+  </div>
+  <% end %>
+  </small>
+    <br>
+    <small>Likes: <%= idea.likes.count %></small>
+
+    <hr>
+</div>
+<br>
+<% end %>
+</div>
+</div>
