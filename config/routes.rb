@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  get '/', to: 'ideas#index', as: :root
+  root 'ideas#index'
 
   resources :ideas do
     resources :reviews, only: [:create, :destroy]

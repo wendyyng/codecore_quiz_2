@@ -103,7 +103,7 @@ RSpec.describe IdeasController, type: :controller do
         end
         
         context "without signed in user" do
-            it "should redirect to the sign in page" do
+            it "should redirect to the root page" do
             valid_request
             expect(response).to redirect_to(root_path)
             end

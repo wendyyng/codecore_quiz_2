@@ -16,7 +16,6 @@ class IdeasController < ApplicationController
                 flash[:notice]= "Idea created successfully!"
                 redirect_to idea_path(@idea)
             else
-                # flash[:alert]= "Title must be unique and body must has at least 50 characters"
                 render :new, status: 303  
             end
         else
@@ -28,6 +27,7 @@ class IdeasController < ApplicationController
     # ================READ========================
     def index
         @ideas = Idea.order(created_at: :desc)
+
     end
 
     def show
