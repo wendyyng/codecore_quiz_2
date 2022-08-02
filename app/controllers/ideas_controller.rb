@@ -1,4 +1,8 @@
 class IdeasController < ApplicationController
+    # =============CALLBACKS=====================
+    before_action :find_idea, only: [:edit, :update, :show, :destroy]
+    before_action :authenticated_user!, except: [:index, :show]
+    before_action :authorize_user!, only:[:edit, :update, :destroy]
     # ==============CREATE========================
     def new
         @idea = Idea.new
@@ -6,12 +10,17 @@ class IdeasController < ApplicationController
 
     def create
         @idea = Idea.new(idea_params)
-        if @idea.save
-            flash[:notice]= "Idea created successfully!"
-            redirect_to idea_path(@idea)
+        if current_user
+            @idea.user = current_user
+            if @idea.save
+                flash[:notice]= "Idea created successfully!"
+                redirect_to idea_path(@idea)
+            else
+                # flash[:alert]= "Title must be unique and body must has at least 50 characters"
+                render :new, status: 303  
+            end
         else
-            # flash[:alert]= "Title must be unique and body must has at least 50 characters"
-            render :new, status: 303  
+            redirect_to root_path
         end
        
         
@@ -44,6 +53,14 @@ class IdeasController < ApplicationController
     end
 
     private
+
+    def authorize_user!
+        redirect_to ideas_path, alert: "Not authorized" unless can?(:crud, @idea)
+    end
+
+    def find_idea
+        @idea = Idea.find params[:id]
+    end
 
     def idea_params
         params.require(:idea).permit(:title, :description)

@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  get '/', to: 'ideas#index', as: :root
+
   resources :ideas
   resources :users, only:[:new, :create]
+
+  resource :session, only:[:new, :create]
 end
