@@ -4,7 +4,7 @@
   <h1><%= @idea.title %></h2>
   <p><%= @idea.description %></p>
   <small>Posted <%= time_ago_in_words(@idea.created_at) %> ago</small><br>
-  <small>By <%= @idea.user.first_name %></small>
+  <small>By <%= @idea.user.full_name %></small>
   <br>
   <div class="container d-flex p-0">
   <small class="mt-2 me-1">Likes: <%= @idea.likes.count %></small>
