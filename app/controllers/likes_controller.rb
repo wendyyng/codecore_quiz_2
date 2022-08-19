@@ -13,7 +13,7 @@ class LikesController < ApplicationController
        else
         flash[:alert] = @like.errors.full_messages.join(", ")
        end
-       redirect_to idea_path(@idea)
+       redirect_to root_path
       end
       
       def destroy
@@ -26,7 +26,7 @@ class LikesController < ApplicationController
         else
          flash[:alert] = "Couldn't unlike idea"
         end
-        redirect_to idea_path(@like.idea)
+        redirect_to root_path
       end
       
 end
